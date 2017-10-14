@@ -2,17 +2,23 @@
 
 class Product {
 
-	private $id;
-	private $name;
-	private $price;
-	private $description;
-	private $quantity;
-	private $sale_price;
-	private $image_name;
+	private $id, $name, $price, $description, $quantity, $sale_price, $image_name;
+
+	function __construct($name, $price, $description, $quantity, $sale_price, $image_name){
+		$this->name = $name;
+		$this->price = $price;
+		$this->description = $description;
+		$this->quantity = $quantity;
+		$this->sale_price = $sale_price;
+		$this->image_name = $image_name;
+	}
 	
 	// Accessors
 	public getId(){
 		return $this->id;
+	}
+	public getName(){
+		return $this->name;
 	}
 	public getPrice(){
 		return $this->price;

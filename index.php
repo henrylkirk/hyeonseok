@@ -1,3 +1,4 @@
+<?php require_once("php/LIB_project1.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,45 +29,13 @@
   <body id="page-top">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Hyeonseok</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#catalog">Catalog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php echo Library::getNav(); ?>
 
     <!-- Header -->
-    <header class="masthead">
-      <div class="container">
-        <div class="intro-text">
-          <div class="intro-lead-in">Welcome To Hyeonseok's Furniture Store</div>
-          <div class="intro-heading">Custom furniture &amp; Woodworking</div>
-          <a class="btn btn-xl js-scroll-trigger" href="#services">Tell Me More</a>
-        </div>
-      </div>
-    </header>
+    <?php echo Library::getHeader(); ?>
+
+    <!-- Catalog of Products -->
+    <?php echo Library::getCatalog(); ?>
 
     <!-- Services -->
     <section id="services">
@@ -128,6 +97,8 @@
             <div class="portfolio-caption">
               <h4>Threads</h4>
               <p class="text-muted">Illustration</p>
+              <p class="price">$2.00</p>
+              <a href=""><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
@@ -331,34 +302,7 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <span class="copyright">Copyright &copy; Hyeonseok Oh 2017</span>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-facebook"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-instagram"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <?php echo Library::getFooter(); ?>
 
     <!-- Catalog Modals -->
 

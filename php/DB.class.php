@@ -17,7 +17,7 @@ class DB {
 	function getProduct($id){
 		try {
 			$data = array();
-			$stmt = $this->dbh->prepare("SELECT * FROM people WHERE PersonID = :id");
+			$stmt = $this->dbh->prepare("SELECT * FROM products WHERE id = :id");
 			$stmt->bindParam(":id",$id,PDO::PARAM_INT);
 			$stmt->execute();
 			$data = $stmt->fetchAll();
@@ -30,11 +30,11 @@ class DB {
 
 	function getAllProducts(){
 		try {
-			include_once("Product.class.php");
+			// include_once("Product.class.php");
 			$data = array();
-			$stmt = $this->dbh->prepare("SELECT * FROM people");
+			$stmt = $this->dbh->prepare("SELECT * FROM products");
 			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_CLASS, "Person");
+			$stmt->setFetchMode(PDO::FETCH_CLASS, "Product");
 			while($person = $stmt->fetch()){
 				$data[] = $person;
 			}
@@ -44,6 +44,33 @@ class DB {
 			die();
 		}
 	}
+
+	// Gets all products from database and returns HTML
+	function getAllProductsAsItems(){
+		$products = $this->getAllProducts();
+		// make html item for each product
+		$items = "";
+		foreach($products as $product){
+$items .= <<<HTML 
+	<div class="col-md-4 col-sm-6 portfolio-item">
+        <a class="portfolio-link" data-toggle="modal" href="#modal-{$product->getId()}">
+          <div class="portfolio-hover">
+            <div class="portfolio-hover-content">
+              <i class="fa fa-plus fa-3x"></i>
+            </div>
+          </div>
+          <img class="img-fluid" src="img/{$product->getImageName()}.jpg" alt="">
+        </a>
+        <div class="portfolio-caption">
+          <h4>{$product->getName()}</h4>
+          <p class="text-muted">{$product->getPrice()}</p>
+          <a href=""><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+        </div>
+	</div>
+HTML;
+		}
+		return $items;
+	}	
 	
 	function insert($name, $price, $description, $quantity, $sale_price, $image_name){
 		try {
