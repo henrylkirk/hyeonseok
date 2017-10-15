@@ -4,7 +4,8 @@ class Product {
 
 	private $id, $name, $price, $description, $quantity, $sale_price, $image_name;
 
-	function __construct($name, $price, $description, $quantity, $sale_price, $image_name){
+	function __construct($id, $name, $price, $description, $quantity, $sale_price, $image_name){
+		$this->id = $id;
 		$this->name = $name;
 		$this->price = $price;
 		$this->description = $description;

@@ -17,7 +17,7 @@ class DB {
 	function getProduct($id){
 		try {
 			$data = array();
-			$stmt = $this->dbh->prepare("SELECT * FROM products WHERE id = :id");
+			$stmt = $this->dbh->prepare("SELECT ID, Name, Price, Description, Quantity, SalePrice, ImageName FROM products WHERE id = :id");
 			$stmt->bindParam(":id",$id,PDO::PARAM_INT);
 			$stmt->execute();
 			$data = $stmt->fetchAll();
@@ -32,7 +32,7 @@ class DB {
 		try {
 			// include_once("Product.class.php");
 			$data = array();
-			$stmt = $this->dbh->prepare("SELECT * FROM products");
+			$stmt = $this->dbh->prepare("SELECT ID, Name, Price, Description, Quantity, SalePrice, ImageName FROM products");
 			$stmt->execute();
 			$stmt->setFetchMode(PDO::FETCH_CLASS, "Product");
 			while($person = $stmt->fetch()){
@@ -59,7 +59,7 @@ $items .= <<<HTML
               <i class="fa fa-plus fa-3x"></i>
             </div>
           </div>
-          <img class="img-fluid" src="img/{$product->getImageName()}.jpg" alt="">
+          <img class="img-fluid" src="img/products-thumb/{$product->getImageName()}.jpg" alt="">
         </a>
         <div class="portfolio-caption">
           <h4>{$product->getName()}</h4>
@@ -74,7 +74,7 @@ HTML;
 	
 	function insert($name, $price, $description, $quantity, $sale_price, $image_name){
 		try {
-			$stmt = $this->dbh->prepare("INSERT INTO products (name, price, description, quantity, sale_price, image_name) VALUES (:name, :price, :description, :quantity, :sale_price, :image_name)");
+			$stmt = $this->dbh->prepare("INSERT INTO products (Name, Price, Description, Quantity, SalePrice, ImageName) VALUES (:name, :price, :description, :quantity, :sale_price, :image_name)");
 			$stmt->execute(array(":name"=>$name, ":price"=>$price, ":description"=>$description, ":quantity"=>$quantity, ":sale_price"=>$sale_price, ":image_name"=>$image_name));
 			return $this->dbh->lastInsertId();
 		} catch(PDOException $pdoe){
