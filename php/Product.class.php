@@ -2,39 +2,39 @@
 
 class Product {
 
-	private $id, $name, $price, $description, $quantity, $sale_price, $image_name;
+	private $ID, $Name, $Price, $Description, $Quantity, $SalePrice, $ImageName;
 
-	function __construct($id, $name, $price, $description, $quantity, $sale_price, $image_name){
-		$this->id = $id;
-		$this->name = $name;
-		$this->price = $price;
-		$this->description = $description;
-		$this->quantity = $quantity;
-		$this->sale_price = $sale_price;
-		$this->image_name = $image_name;
-	}
+	// function __construct($id, $name, $price, $description, $quantity, $sale_price, $image_name){
+	// 	$this->id = $id;
+	// 	$this->name = $name;
+	// 	$this->price = $price;
+	// 	$this->description = $description;
+	// 	$this->quantity = $quantity;
+	// 	$this->sale_price = $sale_price;
+	// 	$this->image_name = $image_name;
+	// }
 	
 	// Accessors
-	public getId(){
-		return $this->id;
+	public function getId(){
+		return $this->ID;
 	}
-	public getName(){
-		return $this->name;
+	public function getName(){
+		return $this->Name;
 	}
-	public getPrice(){
-		return $this->price;
+	public function getPrice(){
+		return $this->Price;
 	}
-	public getDescription(){
-		return $this->description;
+	public function getDescription(){
+		return $this->Description;
 	}
-	public getQuantity(){
-		return $this->quantity;
+	public function getQuantity(){
+		return $this->Quantity;
 	}
-	public getSalePrice(){
-		return $this->sale_price;
+	public function getSalePrice(){
+		return $this->SalePrice;
 	}
-	public getImageName(){
-		return $this->image_name;
+	public function getImageName(){
+		return $this->ImageName;
 	}
 
 	// Mutators

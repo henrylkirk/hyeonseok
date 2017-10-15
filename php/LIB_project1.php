@@ -1,8 +1,8 @@
 <?php
 
-function __autoload($class_name) {
-    require_once 'php/' . $class_name . '.class.php'; 
-}
+// function __autoload($class_name) {
+//     require_once 'php/' . $class_name . '.class.php'; 
+// }
 
 class Library {
 
@@ -60,8 +60,8 @@ HTML;
 }
 
 // Returns catalog section as HTML
-public static function getCatalog(){
-return <<<HTML
+public static function getCatalog($db){
+$catalog = <<<HTML
 	<section class="bg-light" id="catalog">
       <div class="container">
         <div class="row">
@@ -71,12 +71,14 @@ return <<<HTML
           </div>
         </div>
         <div class="row">
-        <!-- products go here -->
-        {$DB->getAllProductsAsItems()}
+HTML;
+      $catalog .= $db->getAllProductsAsItems();
+$catalog .= <<<HTML
         </div>
       </div>
     </section>
 HTML;
+    return $catalog;
 }
 
 // Returns the footer section as HTML
@@ -115,7 +117,7 @@ HTML;
 }
 
 // Returns a modal that contains details for a product
-function getProductModal($product){
+public function getProductModal($product){
 return <<<HTML
 	<!-- Modal -->
     <div class="portfolio-modal modal fade" id="modal-{$product->getId()}" tabindex="-1" role="dialog" aria-hidden="true">
