@@ -6,7 +6,7 @@
 
 class Library {
 
-// Returns main navigation as HTML
+// Returns main navigation as string/HTML
 public static function getNav(){
 return <<<HTML
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -44,7 +44,7 @@ public static function test(){
 	return "test";
 }
 
-// Returns the header section as HTML
+// Returns the header section as string/HTML
 public static function getHeader(){
 return <<<HTML
     <header class="masthead">
@@ -59,7 +59,7 @@ return <<<HTML
 HTML;
 }
 
-// Returns catalog section as HTML
+// Returns catalog section as string/HTML
 public static function getCatalog($db){
 $catalog = <<<HTML
 	<section class="bg-light" id="catalog">
@@ -81,7 +81,7 @@ HTML;
     return $catalog;
 }
 
-// Returns the footer section as HTML
+// Returns the footer section as string/HTML
 public static function getFooter(){
 return <<<HTML
 	<!-- Footer -->

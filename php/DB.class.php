@@ -1,4 +1,5 @@
 <?php
+include_once("Product.class.php");
 
 class DB {
 
@@ -14,7 +15,7 @@ class DB {
 		}
 	}
 	
-	// Get a product by its id
+	// Get a Product by its id
 	function getProduct($id){
 		try {
 			$data = array();
@@ -29,9 +30,9 @@ class DB {
 		}
 	}
 
+	// Returns an array of all Products in database
 	function getAllProducts(){
 		try {
-			include_once("Product.class.php");
 			$data = array();
 			$stmt = $this->db->prepare("SELECT * FROM products");
 			$stmt->execute();
@@ -57,14 +58,14 @@ $items .= <<<HTML
         <a class="portfolio-link" data-toggle="modal" href="#modal-{$product->getId()}">
           <div class="portfolio-hover">
             <div class="portfolio-hover-content">
-              <i class="fa fa-plus fa-3x"></i>
+              <i class="fa fa-eye fa-3x"></i>
             </div>
           </div>
           <img class="img-fluid" src="img/products-thumb/{$product->getImageName()}.jpg" alt="">
         </a>
         <div class="portfolio-caption">
           <h4>{$product->getName()}</h4>
-          <p class="text-muted">{$product->getPrice()}</p>
+          <p class="text-muted">&#36;{$product->getPrice()}</p>
           <a href=""><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
         </div>
 	</div>
@@ -73,6 +74,7 @@ HTML;
 		return $items;
 	}	
 	
+	// Used to insert a new product into the database
 	function insert($name, $price, $description, $quantity, $sale_price, $image_name){
 		try {
 			$stmt = $this->db->prepare("INSERT INTO products (Name, Price, Description, Quantity, SalePrice, ImageName) VALUES (:name, :price, :description, :quantity, :sale_price, :image_name)");
