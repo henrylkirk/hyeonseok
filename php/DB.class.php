@@ -34,7 +34,7 @@ class DB {
 	function getAllProducts(){
 		try {
 			$data = array();
-			$stmt = $this->db->prepare("SELECT * FROM products");
+			$stmt = $this->db->prepare("SELECT * FROM products ORDER BY ID");
 			$stmt->execute();
 			$stmt->setFetchMode(PDO::FETCH_CLASS, "Product");
 			while($product = $stmt->fetch()){
@@ -66,7 +66,7 @@ $items .= <<<HTML
         <div class="portfolio-caption">
           <h4>{$product->getName()}</h4>
           <p class="text-muted">&#36;{$product->getPrice()}</p>
-          <a href=""><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+          <a href=""><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i></a>
         </div>
 	</div>
 HTML;

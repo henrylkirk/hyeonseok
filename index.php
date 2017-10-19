@@ -7,8 +7,8 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="A furniture e-commerce site.">
+    <meta name="author" content="Henry Kirk">
 
     <title>Hyeonseok</title>
 
@@ -41,7 +41,7 @@
       echo Library::getCatalog($db); 
     ?>
 
-    <!-- Sales -->
+    <!-- Sales Section -->
     <section id="sales">
       <div class="container">
         <div class="row">
