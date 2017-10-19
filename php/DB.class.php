@@ -47,9 +47,27 @@ class DB {
 		}
 	}
 
+	// Returns an array of all Products in database on sale
+	function getAllProductsOnSale(){
+		try {
+			$data = array();
+			$stmt = $this->db->prepare("SELECT * FROM products WHERE SalePrice > 0 ORDER BY ID");
+			$stmt->execute();
+			$stmt->setFetchMode(PDO::FETCH_CLASS, "Product");
+			while($product = $stmt->fetch()){
+				$data[] = $product;
+			}
+			return $data;
+		} catch(PDOException $pdoe){
+			echo $pdoe->getMessage();
+			die();
+		}
+	}
+
 	// Gets all products from database and returns HTML
-	function getAllProductsAsItems(){
-		$products = $this->getAllProducts();
+	// Takes in array of products
+	function getProductsAsItems($products){
+		// $products = $this->getAllProducts();
 		// make html item for each product
 		$items = "";
 		foreach($products as $product){

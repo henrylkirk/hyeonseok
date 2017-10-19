@@ -11,7 +11,7 @@ public static function getNav(){
 return <<<HTML
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Hyeonseok</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.php#page-top">Hyeonseok</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -19,17 +19,14 @@ return <<<HTML
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+              <a class="nav-link js-scroll-trigger" href="#sales">Sales</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#catalog">Catalog</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
-            </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
             </li>
@@ -40,19 +37,14 @@ return <<<HTML
 HTML;
 }
 
-public static function test(){
-	return "test";
-}
-
 // Returns the header section as string/HTML
 public static function getHeader(){
 return <<<HTML
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
-          <div class="intro-lead-in">Welcome To Hyeonseok's Furniture Store</div>
+          <div class="intro-lead-in">Welcome to Hyeonseok's Furniture Store</div>
           <div class="intro-heading">Custom furniture &amp; Woodworking</div>
-          <a class="btn btn-xl js-scroll-trigger" href="#services">Tell Me More</a>
         </div>
       </div>
     </header>
@@ -72,7 +64,7 @@ $catalog = <<<HTML
         </div>
         <div class="row">
 HTML;
-      $catalog .= $db->getAllProductsAsItems();
+      $catalog .= $db->getProductsAsItems($db->getAllProducts());
 $catalog .= <<<HTML
         </div>
       </div>
@@ -135,7 +127,7 @@ return <<<HTML
                   <!-- Project Details Go Here -->
                   <h2>{$product->getName()}</h2>
                   <p class="item-intro text-muted">{$product->getDescription()}</p>
-                  <img class="img-fluid d-block mx-auto" src="img/{$product->getImageName()}.jpg" alt="">
+                  <img class="img-fluid d-block mx-auto" src="img/products-full/{$product->getImageName()}.jpg" alt="{$product->getImageName()}">
                   <p>{$product->getDescription()}</p>
                   <ul class="list-inline">
                     <li>Price: {$product->getPrice()}</li>
