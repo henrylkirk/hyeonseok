@@ -73,6 +73,27 @@ HTML;
     return $catalog;
 }
 
+// Returns sales section as string/HTML
+public static function getSales($db){
+$sales = <<<HTML
+    <section id="sales">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Sales</h2>
+            <h3 class="section-subheading text-muted">Products currently on sale.</h3>
+          </div>
+        </div>
+        <!-- Products on Sale -->
+HTML;
+      $sales .= $db->getProductsAsItems($db->getAllProductsOnSale());
+$sales .= <<<HTML
+      </div>
+    </section>
+HTML;
+    return $sales;
+}
+
 // Returns the footer section as string/HTML
 public static function getFooter(){
 return <<<HTML

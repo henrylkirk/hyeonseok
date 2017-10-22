@@ -36,23 +36,13 @@
     <?php echo Library::getHeader(); ?>
 
     <!-- Sales Section -->
-    <section id="sales">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading">Sales</h2>
-            <h3 class="section-subheading text-muted">Products currently on sale.</h3>
-          </div>
-        </div>
-        <!-- products go here -->
-      </div>
-    </section>
-
-    <!-- Catalog of All Products -->
     <?php 
       $db = new DB();
-      echo Library::getCatalog($db); 
+      echo Library::getSales($db); 
     ?>
+
+    <!-- Catalog of All Products -->
+    <?php echo Library::getCatalog($db); ?>
 
     <!-- Get product modals -->
     <?php
