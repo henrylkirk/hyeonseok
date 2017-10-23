@@ -33,11 +33,15 @@ class DB {
 		}
 	}
 
-	// Returns an array of all Products in database
-	public function get_all_products(){
+	/**
+	 * Holds logic for getting products from database
+	 * @param string
+	 * @return array
+	 */
+	private function get_products(string $sqlString){
 		try {
 			$data = array();
-			$stmt = $this->db->prepare("SELECT * FROM products ORDER BY ID");
+			$stmt = $this->db->prepare($sqlString);
 			$stmt->execute();
 			$stmt->setFetchMode(PDO::FETCH_CLASS, "Product");
 			while($product = $stmt->fetch()){
@@ -50,21 +54,19 @@ class DB {
 		}
 	}
 
+	// Returns an array of all Products in database
+	public function get_all_products(){
+		return $this->get_products("SELECT * FROM products ORDER BY Name");
+	}
+
+	// Returns an array of Products not on sale
+	public function get_catalog_products(){
+		return $this->get_products("SELECT * FROM products WHERE SalePrice = 0 ORDER BY Name");
+	}
+
 	// Returns an array of all Products in database on sale
 	public function get_sale_products(){
-		try {
-			$data = array();
-			$stmt = $this->db->prepare("SELECT * FROM products WHERE SalePrice > 0 ORDER BY ID");
-			$stmt->execute();
-			$stmt->setFetchMode(PDO::FETCH_CLASS, "Product");
-			while($product = $stmt->fetch()){
-				$data[] = $product;
-			}
-			return $data;
-		} catch(PDOException $pdoe){
-			echo $pdoe->getMessage();
-			die();
-		}
+		return $this->get_products("SELECT * FROM products WHERE SalePrice > 0 ORDER BY Name");
 	}
 
 	// Gets all products from database and returns HTML

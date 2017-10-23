@@ -48,10 +48,10 @@ return <<<HTML
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="php/sales.php">Sales</a>
+              <a class="nav-link js-scroll-trigger" href="#sales">Sales</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="php/catalog.php">Catalog</a>
+              <a class="nav-link js-scroll-trigger" href="#catalog">Catalog</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="php/admin.php">Admin</a>
@@ -100,7 +100,7 @@ $catalog = <<<HTML
         </div>
         <div class="row">
 HTML;
-      $catalog .= $db->get_products_as_items($db->get_all_products());
+      $catalog .= $db->get_products_as_items($db->get_catalog_products());
 $catalog .= <<<HTML
         </div>
       </div>

@@ -1,4 +1,4 @@
-<?php require_once("php/page_start.php"); ?>
+<?php require_once("page_start.php"); ?>
 
 <!-- Head -->
 <?php echo Library::get_head("Hyeonseok"); ?>
