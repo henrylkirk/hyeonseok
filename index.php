@@ -1,64 +1,34 @@
-<?php require_once("php/DB.class.php"); ?>
-<?php require_once("php/LIB_project1.php"); ?>
-<!DOCTYPE html>
-<html lang="en">
+<?php require_once("php/page_start.php"); ?>
 
-  <head>
+<!-- Head -->
+<?php echo Library::get_head("Hyeonseok"); ?>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="A furniture e-commerce site.">
-    <meta name="author" content="Henry Kirk">
+<!-- Navigation -->
+<?php echo Library::get_nav(); ?>
 
-    <title>Hyeonseok</title>
+<!-- Header/Intro Section -->
+<?php echo Library::get_header(); ?>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Sales Section -->
+<?php echo Library::get_sales($db); ?>
 
-    <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+<!-- Catalog of All Products -->
+<?php echo Library::get_catalog($db); ?>
 
-    <!-- Custom styles for this template -->
-    <link href="css/hyeonseok.min.css" rel="stylesheet">
-
-  </head>
-
-  <body id="page-top">
-
-    <!-- Navigation -->
-    <?php echo Library::getNav(); ?>
-
-    <!-- Header -->
-    <?php echo Library::getHeader(); ?>
-
-    <!-- Sales Section -->
-    <?php 
-      $db = new DB();
-      echo Library::getSales($db); 
-    ?>
-
-    <!-- Catalog of All Products -->
-    <?php echo Library::getCatalog($db); ?>
-
-    <!-- Get product modals -->
-    <?php
-      $products = $db->getAllProducts();
-      foreach($products as $product){
-        echo Library::getProductModal($product);
-      }
-    ?>
+<!-- Get product modals -->
+<?php
+  foreach($products as $product){
+    echo Library::get_product_modal($product);
+  }
+?>
 
     <!-- Contact -->
     <section id="contact">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading">Contact Us</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading">Contact</h2>
+            <h3 class="section-subheading text-muted">Need a custom piece a furniture?</h3>
           </div>
         </div>
         <div class="row">
@@ -97,24 +67,5 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <?php echo Library::getFooter(); ?>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Contact form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-
-    <!-- Custom scripts -->
-    <script src="js/hyeonseok.min.js"></script>
-
-  </body>
-
-</html>
+<!-- Footer -->
+<?php echo Library::get_footer(); ?>

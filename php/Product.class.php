@@ -15,25 +15,25 @@ class Product {
 	// }
 	
 	// Accessors
-	public function getId(){
+	public function get_id(){
 		return $this->ID;
 	}
-	public function getName(){
+	public function get_name(){
 		return $this->Name;
 	}
-	public function getPrice(){
-		return $this->Price;
+	public function get_price(){
+		return ($this->Price - $this->SalePrice);
 	}
-	public function getDescription(){
+	public function get_description(){
 		return $this->Description;
 	}
-	public function getQuantity(){
+	public function get_quantity(){
 		return $this->Quantity;
 	}
-	public function getSalePrice(){
+	private function get_sale_price(){
 		return $this->SalePrice;
 	}
-	public function getImageName(){
+	public function get_image_name(){
 		return $this->ImageName;
 	}
 
