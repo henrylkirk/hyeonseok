@@ -89,7 +89,7 @@ $items .= <<<HTML
         <div class="portfolio-caption">
           <h4>{$product->get_name()}</h4>
           <p class="text-muted">&#36;{$product->get_price()}</p>
-          <a href=""><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i></a>
+          <a href="cartAction.php?action=addToCart&id={$product->get_id()}"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i></a>
         </div>
 	</div>
 HTML;

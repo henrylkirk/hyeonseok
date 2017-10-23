@@ -1,4 +1,7 @@
-<?php require_once("php/page_start.php"); ?>
+<?php 
+  define("PATH_PHP", __DIR__."/php/");
+  require_once(PATH_PHP."page_start.php");
+?>
 
 <!-- Head -->
 <?php echo Library::get_head("Hyeonseok"); ?>
