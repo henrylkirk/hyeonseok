@@ -1,9 +1,11 @@
 <?php
 include_once("Product.class.php");
+include_once("Cart.class.php");
 
 class DB {
 
 	private $db;
+	const PRODUCTS_PER_PAGE = 5;
 	
 	/**
 	 * Constructor
@@ -18,8 +20,11 @@ class DB {
 		}
 	}
 	
-	// Get a Product by its id
-	public function get_product($id){
+	/**
+	 * Get a Product by its id
+	 * @param int
+	 */ 
+	public function get_product(int $id){
 		try {
 			$data = array();
 			$stmt = $this->db->prepare("SELECT * FROM products WHERE id = :id");
@@ -60,8 +65,9 @@ class DB {
 	}
 
 	// Returns an array of Products not on sale
-	public function get_catalog_products(){
-		return $this->get_products("SELECT * FROM products WHERE SalePrice = 0 ORDER BY Name");
+	public function get_catalog_products($page_num = 1){
+		$offset = ($page_num - 1) * self::PRODUCTS_PER_PAGE;
+		return $this->get_products("SELECT * FROM products WHERE SalePrice = 0 ORDER BY Name LIMIT ". self::PRODUCTS_PER_PAGE ." OFFSET {$offset}");
 	}
 
 	// Returns an array of all Products in database on sale
@@ -76,22 +82,22 @@ class DB {
 		// make html item for each product
 		$items = "";
 		foreach($products as $product){
-$items .= <<<HTML
-	<div class="col-md-4 col-sm-6 portfolio-item">
-        <a class="portfolio-link" data-toggle="modal" href="#modal-{$product->get_id()}">
-          <div class="portfolio-hover">
-            <div class="portfolio-hover-content">
-              <i class="fa fa-eye fa-3x"></i>
-            </div>
-          </div>
-          <img class="img-fluid" src="img/products-thumb/{$product->get_image_name()}.jpg" alt="">
-        </a>
-        <div class="portfolio-caption">
-          <h4>{$product->get_name()}</h4>
-          <p class="text-muted">&#36;{$product->get_price()}</p>
-          <a href="cartAction.php?action=addToCart&id={$product->get_id()}"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i></a>
-        </div>
-	</div>
+			$items .= <<<HTML
+				<div class="col-md-4 col-sm-6 portfolio-item">
+			        <a class="portfolio-link" data-toggle="modal" href="#modal-{$product->get_id()}">
+			          <div class="portfolio-hover">
+			            <div class="portfolio-hover-content">
+			              <i class="fa fa-eye fa-3x"></i>
+			            </div>
+			          </div>
+			          <img class="img-fluid" src="img/products-thumb/{$product->get_image_name()}.jpg" alt="">
+			        </a>
+			        <div class="portfolio-caption">
+			          <h4>{$product->get_name()}</h4>
+			          <p class="text-muted">&#36;{$product->get_price()}</p>
+			          <a href="cartAction.php?action=addToCart&id={$product->get_id()}"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i></a>
+			        </div>
+				</div>
 HTML;
 		}
 		return $items;

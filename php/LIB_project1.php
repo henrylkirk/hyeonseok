@@ -88,7 +88,7 @@ HTML;
      * @param DB
      * @return string
      */
-    public static function get_catalog($db){
+    public static function get_catalog($db, $page_num){
         $catalog = <<<HTML
         	<section class="bg-light" id="catalog">
               <div class="container">
@@ -100,9 +100,29 @@ HTML;
                 </div>
                 <div class="row">
 HTML;
-              $catalog .= $db->get_products_as_items($db->get_catalog_products());
+              $catalog .= $db->get_products_as_items($db->get_catalog_products($page_num));
         $catalog .= <<<HTML
                 </div>
+                <!-- Pagination -->
+                <nav aria-label="Page navigation example" style="margin:auto;width: 164px;">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="index.php?page=1#catalog">1</a></li>
+                    <li class="page-item"><a class="page-link" href="index.php?page=2#catalog">2</a></li>
+                    <li class="page-item"><a class="page-link" href="index.php?page=3#catalog">3</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
               </div>
             </section>
 HTML;

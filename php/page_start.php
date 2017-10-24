@@ -14,4 +14,8 @@ if(!isset($cart)){
 	$cart = new Cart;
 }
 
+// get the page number
+// $page_num = $_GET["page"];
+
+
 ?>

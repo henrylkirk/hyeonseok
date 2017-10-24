@@ -15,8 +15,8 @@
 <!-- Sales Section -->
 <?php echo Library::get_sales($db); ?>
 
-<!-- Catalog of All Products -->
-<?php echo Library::get_catalog($db); ?>
+<!-- Catalog of Products for this page -->
+<?php echo Library::get_catalog($db, 1); ?>
 
 <!-- Get product modals -->
 <?php
