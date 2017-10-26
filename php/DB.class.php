@@ -63,7 +63,11 @@ class DB {
 	 * Returns the number of products in the catalog section.
 	 */
 	public function get_catalog_products_count(){
-		return $this->get_products("SELECT COUNT(*) FROM products WHERE SalePrice = 0");
+		$sqlString = "SELECT COUNT(*) FROM products WHERE SalePrice = 0";
+		$result = $this->db->prepare($sqlString);
+		$result->execute(); 
+		$number_of_products = $result->fetchColumn();
+		return $number_of_products; 
 	}
 
 	// Returns an array of all Products in database

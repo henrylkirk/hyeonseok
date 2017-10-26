@@ -17,12 +17,22 @@ class Library {
     /**
      * A utility function to validate a page number
      */
-    private function is_valid_page($page_num){
-        if(is_int($page_num)){
-            return true;
+    private function validate_page($page_num){
+        $max_page = ceil($this->db->get_catalog_products_count() / $this->db::PRODUCTS_PER_PAGE);
+
+        // make sure a number
+        if(is_numeric($page_num)){
+            $page_num = (int)$page_num;
         } else {
-            return false;
+            $page_num = 1;
         }
+        // make sure within valid page range
+        if($page_num > $max_page){
+            $page_num = $max_page;
+        } elseif($page_num < 1) {
+            $page_num = 1;
+        }
+        return $page_num;
     }
 
     /**
@@ -151,10 +161,7 @@ HTML;
      * @return string
      */
     public function get_catalog($page_num){
-        // validate page_num, default to 1
-        if(!$this->is_valid_page($page_num)){
-            // $page_num = 1;
-        }
+        $page_num = $this->validate_page($page_num);
 
         $catalog = <<<HTML
         	<section class="bg-light" id="catalog">
