@@ -59,6 +59,13 @@ class DB {
 		}
 	}
 
+	/**
+	 * Returns the number of products in the catalog section.
+	 */
+	public function get_catalog_products_count(){
+		return $this->get_products("SELECT COUNT(*) FROM products WHERE SalePrice = 0");
+	}
+
 	// Returns an array of all Products in database
 	public function get_all_products(){
 		return $this->get_products("SELECT * FROM products ORDER BY Name");

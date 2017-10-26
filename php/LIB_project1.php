@@ -3,13 +3,25 @@
 class Library {
 
     /**
+     * A utility function to validate a page number
+     */
+    private function validatePageNumber($page_num){
+        $status = false;
+        // $num_products = 
+        if(is_int($page_num)){
+            $status = true;
+        }
+        return $status;
+    }
+
+    /**
      * get_head: Returns the site's head
      * @param    string
      * @return    string
      */
     public static function get_head(string $page_title){
         return <<<HTML
-          <!DOCTYPE html>
+            <!DOCTYPE html>
           <html lang="en">
             <head>
               <meta charset="utf-8">
