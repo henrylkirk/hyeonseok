@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * A class that contains functions to get sections of this site.
+ */
 class Library {
 
     private $db;
@@ -60,13 +63,14 @@ HTML;
         return <<<HTML
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
               <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="index.php#page-top">Hyeonseok</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                  Menu
-                  <i class="fa fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                  <ul class="navbar-nav ml-auto">
+                  <a class="navbar-brand js-scroll-trigger" href="index.php#page-top">Hyeonseok</a>
+                  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fa fa-bars"></i>
+                  </button>
+                <div class="collapse navbar-collapse navbar-left" id="navbarResponsive">
+                  <!-- <ul class="navbar-nav ml-auto"> -->
+                  <ul class="navbar-nav">
                     <li class="nav-item">
                       <a class="nav-link js-scroll-trigger" href="#sales">Sales</a>
                     </li>
@@ -74,13 +78,21 @@ HTML;
                       <a class="nav-link js-scroll-trigger" href="#catalog">Catalog</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="php/admin.php">Admin</a>
+                      <a class="nav-link" href="admin.php">Admin</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="php/cart.php"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a>
+                      <a class="nav-link" href="cart.php"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a>
                     </li>
                   </ul>
                 </div>
+                  <!-- Login Form -->
+                  <form class="navbar-form navbar-right" role="search" style="width:100%;">
+                    <div class="form-group row">
+                        <input type="text" class="form-control" name="username" placeholder="Username">
+                        <input type="text" class="form-control" name="password" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-default">Sign In</button>
+                  </form>
               </div>
             </nav>
 HTML;
@@ -90,13 +102,13 @@ HTML;
      * Returns the header/intro section
      * @return string
      */
-    public function get_header(){
+    public function get_header($intro_leadin, $intro_heading){
         return <<<HTML
             <header class="masthead">
               <div class="container">
                 <div class="intro-text">
-                  <div class="intro-lead-in">Welcome to Hyeonseok's Furniture Store</div>
-                  <div class="intro-heading">Custom furniture &amp; Woodworking</div>
+                  <div class="intro-lead-in">{$intro_leadin}</div>
+                  <div class="intro-heading">{$intro_heading}</div>
                 </div>
               </div>
             </header>

@@ -1,10 +1,13 @@
-<?php require_once(PATH_PHP."page_start.php"); ?>
+<?php require_once("php/page_start.php"); ?>
 
 <!-- Head -->
-<?php echo Library::get_head("Hyeonseok"); ?>
+<?php echo $lib->get_head("Hyeonseok - Cart"); ?>
 
 <!-- Navigation -->
-<?php echo Library::get_nav(); ?>
+<?php echo $lib->get_nav(); ?>
+
+<!-- Header/Intro Section -->
+<?php echo $lib->get_header("","Your cart"); ?>
 
 <div class="container">
     <h1>Shopping Cart</h1>
@@ -52,4 +55,4 @@
 </div>
 
 <!-- Footer -->
-<?php echo Library::get_footer(); ?>
+<?php echo $lib->get_footer(); ?>
