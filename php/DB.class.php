@@ -80,34 +80,6 @@ class DB {
 	// Returns an array of all Products in database on sale
 	public function get_sale_products(){
 		return $this->get_products("SELECT * FROM products WHERE SalePrice > 0 ORDER BY Name");
-	}
-
-	// Gets all products from database and returns HTML
-	// Takes in array of products
-	public function get_products_as_items($products){
-		// $products = $this->getAllProducts();
-		// make html item for each product
-		$items = "";
-		foreach($products as $product){
-			$items .= <<<HTML
-				<div class="col-md-4 col-sm-6 portfolio-item">
-			        <a class="portfolio-link" data-toggle="modal" href="#modal-{$product->get_id()}">
-			          <div class="portfolio-hover">
-			            <div class="portfolio-hover-content">
-			              <i class="fa fa-eye fa-3x"></i>
-			            </div>
-			          </div>
-			          <img class="img-fluid" src="img/products-thumb/{$product->get_image_name()}.jpg" alt="">
-			        </a>
-			        <div class="portfolio-caption">
-			          <h4>{$product->get_name()}</h4>
-			          <p class="text-muted">&#36;{$product->get_price()}</p>
-			          <a href="cartAction.php?action=addToCart&id={$product->get_id()}"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i></a>
-			        </div>
-				</div>
-HTML;
-		}
-		return $items;
 	}	
 	
 	// Used to insert a new product into the database

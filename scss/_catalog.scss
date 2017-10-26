@@ -58,9 +58,6 @@
       }
     }
   }
-  * {
-    z-index: 2;
-  }
 }
 @media(min-width:767px) {
   #catalog, #sales {
@@ -75,6 +72,7 @@
     max-width: none;
     height: 100%;
     margin: 0;
+    z-index:99999999999999999;
   }
   .modal-content {
     min-height: 100%;
@@ -133,7 +131,7 @@
       background-color: $gray-darker;
       .rl {
         /* Safari and Chrome */
-        z-index: 1052;
+        z-index: 9;
         width: 1px;
         height: 75px;
         /* IE 9 */

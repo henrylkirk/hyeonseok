@@ -4,26 +4,19 @@
 ?>
 
 <!-- Head -->
-<?php echo Library::get_head("Hyeonseok"); ?>
+<?php echo $lib->get_head("Hyeonseok"); ?>
 
 <!-- Navigation -->
-<?php echo Library::get_nav(); ?>
+<?php echo $lib->get_nav(); ?>
 
 <!-- Header/Intro Section -->
-<?php echo Library::get_header(); ?>
+<?php echo $lib->get_header(); ?>
 
 <!-- Sales Section -->
-<?php echo Library::get_sales($db); ?>
+<?php echo $lib->get_sales(); ?>
 
 <!-- Catalog of Products for this page -->
-<?php echo Library::get_catalog($db, 1); ?>
-
-<!-- Get product modals -->
-<?php
-  foreach($products as $product){
-    echo Library::get_product_modal($product);
-  }
-?>
+<?php echo $lib->get_catalog($page_num); ?>
 
 <!-- Footer -->
-<?php echo Library::get_footer(); ?>
+<?php echo $lib->get_footer(); ?>

@@ -4,10 +4,8 @@ function __autoload($class_name) {
     require_once 'php/' . $class_name . '.class.php'; 
 }
 
-require_once(__DIR__."/LIB_project1.php");
-
-$db = new DB();
-$products = $db->get_all_products();
+// Include and create
+$lib = new Library();
 
 // create a new cart
 if(!isset($cart)){
@@ -15,7 +13,6 @@ if(!isset($cart)){
 }
 
 // get the page number
-// $page_num = $_GET["page"];
-
+$page_num = isset($_GET["page"]) ? $_GET["page"] : 1;
 
 ?>

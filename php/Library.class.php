@@ -2,16 +2,24 @@
 
 class Library {
 
+    private $db;
+
+    /**
+     * Constructor
+     */
+    function __construct(){
+        $this->db = new DB();
+    }
+
     /**
      * A utility function to validate a page number
      */
-    private function validatePageNumber($page_num){
-        $status = false;
-        // $num_products = 
+    private function is_valid_page($page_num){
         if(is_int($page_num)){
-            $status = true;
+            return true;
+        } else {
+            return false;
         }
-        return $status;
     }
 
     /**
@@ -19,7 +27,7 @@ class Library {
      * @param    string
      * @return    string
      */
-    public static function get_head(string $page_title){
+    public function get_head(string $page_title){
         return <<<HTML
             <!DOCTYPE html>
           <html lang="en">
@@ -48,7 +56,7 @@ HTML;
      * get_nav: Returns the site's navigation
      * @return    string
      */
-    public static function get_nav(){
+    public function get_nav(){
         return <<<HTML
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
               <div class="container">
@@ -82,7 +90,7 @@ HTML;
      * Returns the header/intro section
      * @return string
      */
-    public static function get_header(){
+    public function get_header(){
         return <<<HTML
             <header class="masthead">
               <div class="container">
@@ -96,11 +104,46 @@ HTML;
     }
 
     /**
-     * Returns the section of products
-     * @param DB
+     * Returns the html for given products.
+     * @param array
      * @return string
      */
-    public static function get_catalog($db, $page_num){
+    private function get_products_as_items($products){
+        $items = "";
+        foreach($products as $product){
+            $items .= <<<HTML
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a class="portfolio-link" data-toggle="modal" href="#modal-{$product->get_id()}">
+                      <div class="portfolio-hover">
+                        <div class="portfolio-hover-content">
+                          <i class="fa fa-eye fa-3x"></i>
+                        </div>
+                      </div>
+                      <img class="img-fluid" src="img/products-thumb/{$product->get_image_name()}.jpg" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                      <h4>{$product->get_name()}</h4>
+                      <p class="text-muted">&#36;{$product->get_price()}</p>
+                      <a href="index.php?action=addToCart&id={$product->get_id()}"><i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+HTML;
+            $items .= $this->get_product_modal($product);
+        }
+        return $items;
+    }
+
+    /**
+     * Returns the section of products
+     * @param int
+     * @return string
+     */
+    public function get_catalog($page_num){
+        // validate page_num, default to 1
+        if(!$this->is_valid_page($page_num)){
+            // $page_num = 1;
+        }
+
         $catalog = <<<HTML
         	<section class="bg-light" id="catalog">
               <div class="container">
@@ -112,8 +155,8 @@ HTML;
                 </div>
                 <div class="row">
 HTML;
-              $catalog .= $db->get_products_as_items($db->get_catalog_products($page_num));
-        $catalog .= <<<HTML
+              $catalog .= $this->get_products_as_items($this->db->get_catalog_products($page_num));
+              $catalog .= <<<HTML
                 </div>
                 <!-- Pagination -->
                 <nav aria-label="Page navigation example" style="margin:auto;width: 164px;">
@@ -143,10 +186,9 @@ HTML;
 
     /**
      * get_sales: Returns the section of products on sale
-     * @param DB
      * @return string
      */
-    public static function get_sales($db){
+    public function get_sales(){
         $sales = <<<HTML
             <section id="sales">
                 <div class="container">
@@ -159,7 +201,7 @@ HTML;
                     <div class="row">
                     <!-- Products on Sale -->
 HTML;
-        $sales .= $db->get_products_as_items($db->get_sale_products());
+        $sales .= $this->get_products_as_items($this->db->get_sale_products());
         $sales .= <<<HTML
                     </div>
                 </div>
@@ -173,7 +215,7 @@ HTML;
      * @param    Product
      * @return    string
      */
-    public static function get_product_modal($product){
+    private function get_product_modal($product){
         return <<<HTML
         	<!-- Modal -->
             <div class="portfolio-modal modal fade" id="modal-{$product->get_id()}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -214,7 +256,7 @@ HTML;
      * get_footer: Returns the site's footer section
      * @return    string
      */
-    public static function get_footer(){
+    public function get_footer(){
         return <<<HTML
           <!-- Footer -->
             <footer>

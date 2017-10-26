@@ -212,9 +212,6 @@ header.masthead {
       margin: 0;
       font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
 
-#catalog *, #sales * {
-  z-index: 2; }
-
 @media (min-width: 767px) {
   #catalog .portfolio-item, #sales .portfolio-item {
     margin: 0 0 30px; } }
@@ -222,7 +219,8 @@ header.masthead {
 .portfolio-modal .modal-dialog {
   max-width: none;
   height: 100%;
-  margin: 0; }
+  margin: 0;
+  z-index: 99999999999999999; }
 
 .portfolio-modal .modal-content {
   min-height: 100%;
@@ -274,7 +272,7 @@ header.masthead {
     background-color: #222222; }
     .portfolio-modal .close-modal .lr .rl {
       /* Safari and Chrome */
-      z-index: 1052;
+      z-index: 9;
       width: 1px;
       height: 75px;
       /* IE 9 */
