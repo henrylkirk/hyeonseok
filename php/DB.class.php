@@ -87,7 +87,7 @@ class DB {
 	}	
 	
 	// Used to insert a new product into the database
-	public function insert($name, $price, $description, $quantity, $sale_price, $image_name){
+	public function insert_product($name, $price, $description, $quantity, $sale_price, $image_name){
 		try {
 			$stmt = $this->db->prepare("INSERT INTO products (Name, Price, Description, Quantity, SalePrice, ImageName) VALUES (:name, :price, :description, :quantity, :sale_price, :image_name)");
 			$stmt->execute(array(":name"=>$name, ":price"=>$price, ":description"=>$description, ":quantity"=>$quantity, ":sale_price"=>$sale_price, ":image_name"=>$image_name));
@@ -96,6 +96,15 @@ class DB {
 			echo $pdoe->getMessage();
 			die();
 		}
+	}
+
+
+	/////////////
+	// Cart
+	/////////////
+
+	public function get_cart_contents(){
+		// get all products
 	}
 	
 }
