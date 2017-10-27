@@ -5,13 +5,15 @@
  */
 class Library {
 
-    public $db;
+    private $db;
+    private $cart;
 
     /**
      * Constructor
      */
     function __construct(){
         $this->db = new DB();
+        $this->cart = new Cart();
     }
 
     /**
@@ -290,7 +292,7 @@ HTML;
                             </thead>
                             <tbody>
 HTML;
-        $cart_contents = $this->db->get_cart_contents();
+        $cart_contents = $this->cart->get_contents();
         for($i = 0; $i < count($cart_contents); $i++){
             $product = $this->db->get_product($cart_contents[$i]["ID"]);
             $section .= $this->get_cart_row($product, $cart_contents[$i]["Quantity"]);
@@ -301,7 +303,7 @@ HTML;
                                 <tr>
                                     <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
                                     <td colspan="2" class="hidden-xs"></td>
-                                    <td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
+                                    <td class="hidden-xs text-center"><strong>Total: &#36;{$this->cart->get_total()}</strong></td>
                                     <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
                                 </tr>
                             </tfoot>

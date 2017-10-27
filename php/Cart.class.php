@@ -3,9 +3,9 @@
 // session_start();
 
 class Cart {
+
     private $db;
     private $cart_contents = array();
-    private $total;
 
     public function __construct(){
         $db = new DB();
@@ -17,9 +17,9 @@ class Cart {
      * Returns the cart array
      * @return array
      */
-    // public function get_contents(){
-    //     return $this->cart_content;
-    // }
+    public function get_contents(){
+        return $this->cart_contents;
+    }
     
     /**
      * Returns number of products in cart
@@ -30,12 +30,19 @@ class Cart {
     // }
     
     /**
-     * Returns total price
-     * @return int
+     * Returns total price for cart
+     * @return double
      */
-    // public function get_total(){
-    //     return $total;
-    // }
+    public function get_total(){
+        $total = 0.0;
+        for($i = 0; $i < count($this->cart_contents); $i++){
+            $product = $this->db->get_product($this->cart_contents[$i]["ID"]);
+            $price = $product->get_price();
+            $quantity = $this->cart_contents[$i]["Quantity"];
+            $total += ($price * $quantity);
+        }
+        return number_format($total,2);
+    }
     
     /**
      * Insert product into the cart
