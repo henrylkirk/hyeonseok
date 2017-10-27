@@ -9,7 +9,6 @@
 class DB {
 
 	private $pdo;
-	const PRODUCTS_PER_PAGE = 5;
 	
 	/**
 	 * Constructor
@@ -82,8 +81,8 @@ class DB {
 
 	// Returns an array of Products not on sale
 	public function get_catalog_products($page_num = 1){
-		$offset = ($page_num - 1) * self::PRODUCTS_PER_PAGE;
-		return $this->get_products("SELECT * FROM products WHERE SalePrice = 0 ORDER BY Name LIMIT ". self::PRODUCTS_PER_PAGE ." OFFSET {$offset}");
+		$offset = ($page_num - 1) * ProductsManager::PRODUCTS_PER_PAGE;
+		return $this->get_products("SELECT * FROM products WHERE SalePrice = 0 ORDER BY Name LIMIT ". ProductsManager::PRODUCTS_PER_PAGE ." OFFSET {$offset}");
 	}
 
 	// Returns an array of all Products in database on sale
