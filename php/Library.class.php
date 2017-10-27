@@ -338,7 +338,7 @@ HTML;
             </td>
             <td data-th="Subtotal" class="text-center">&#36;{$subtotal}</td>
             <td class="actions" data-th="">
-                <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>                                
+                <a href="cart.php?action=removeFromCart&id={$product->get_id()}"><button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>                                
             </td>
         </tr>
 HTML;

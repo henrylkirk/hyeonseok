@@ -4,6 +4,7 @@ function __autoload($class_name) {
     require_once 'php/' . $class_name . '.class.php'; 
 }
 
+// Global Variables
 // Include and create
 $lib = new Library();
 
