@@ -1,16 +1,16 @@
 <?php require_once("php/page_start.php"); ?>
 
 <!-- Head -->
-<?php echo $lib->get_head("Hyeonseok | Cart"); ?>
+<?php echo $lib->get_head("Hyeonseok | Admin"); ?>
 
 <!-- Navigation -->
 <?php echo $lib->get_nav(); ?>
 
 <!-- Header/Intro Section -->
-<?php echo $lib->get_header("","Your cart"); ?>
+<?php echo $lib->get_header("", "Admin"); ?>
 
-<!-- Cart Section -->
-<?php echo $lib->get_cart_section(); ?>
+<!-- Admin Section -->
+<?php echo $lib->get_admin_section(); ?>
 
 <!-- Footer -->
 <?php echo $lib->get_footer(); ?>

@@ -280,34 +280,37 @@ HTML;
             <section class="bg-light" id="cart">
                   <div class="container">
                     <div class="row">
-                        <table id="cart-table" class="table table-hover table-condensed">
-                            <thead>
-                                <tr>
-                                    <th style="width:50%">Product</th>
-                                    <th style="width:10%">Price</th>
-                                    <th style="width:8%">Quantity</th>
-                                    <th style="width:22%" class="text-center">Subtotal</th>
-                                    <th style="width:10%"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <form action="php/admin.php" method="post">
+                            <table id="cart-table" class="table table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th style="width:50%">Product</th>
+                                        <th style="width:10%">Price</th>
+                                        <th style="width:8%">Quantity</th>
+                                        <th style="width:22%" class="text-center">Subtotal</th>
+                                        <th style="width:10%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 HTML;
+        // add row for each product in cart
         $cart_contents = $this->cart->get_contents();
         for($i = 0; $i < count($cart_contents); $i++){
             $product = $this->db->get_product($cart_contents[$i]["ID"]);
             $section .= $this->get_cart_row($product, $cart_contents[$i]["Quantity"]);
         }
         $section .= <<<HTML
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
-                                    <td colspan="2" class="hidden-xs"></td>
-                                    <td class="hidden-xs text-center"><strong>Total: &#36;{$this->cart->get_total()}</strong></td>
-                                    <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td><a href="index.php" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                                        <td colspan="2" class="hidden-xs"></td>
+                                        <td class="hidden-xs text-center"><strong>Total: &#36;{$this->cart->get_total()}</strong></td>
+                                        <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -345,8 +348,80 @@ HTML;
     }
 
     /**
+     * Returns a product row for the admin table.
+     * @return string
+     */
+    private function get_admin_row($product){
+        return <<<HTML
+        <tr data-product-id="{$product->get_id()}">
+            <td>
+                <input type="text" name="name" class="form-control text-center" value="{$product->get_name()}">
+            </td>
+            <td>
+                <input type="text" name="description" class="form-control text-center" value="{$product->get_description()}">
+            </td>      
+            <td>
+                <input type="number" name="price" class="form-control text-center" value="{$product->get_price()}">
+            </td>
+            <td>
+                <input type="number" name="sale_price" class="form-control text-center" value="{$product->get_sale_price()}">
+            </td>
+            <td>
+                <input type="number" name="quantity" class="form-control text-center" value="{$product->get_quantity()}">
+            </td>
+            <td>
+                <input type="text" name="image_name" class="form-control text-center" value="{$product->get_image_name()}">
+            </td>
+        </tr>
+HTML;
+    }
+
+    /**
+     * Returns the site's admin section
+     * @return string
+     */
+    public function get_admin_section(){
+        $section = <<<HTML
+            <section class="bg-light" id="admin">
+                  <div class="container">
+                    <div class="row">
+                        <table id="admin-table" class="table table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Sale Price</th>
+                                    <th>Quantity</th>
+                                    <th>Image Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+HTML;
+
+        // get all products
+        $products = $this->db->get_all_products();
+        foreach ($products as $product) {
+            $section .= $this->get_admin_row($product);
+        }
+        $section .= <<<HTML
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><a href="admin.php?action=saveAdmin" class="btn btn-warning"><i class="fa fa-save"></i> Save</a></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </section>
+HTML;
+        return $section;
+    }
+
+    /**
      * get_footer: Returns the site's footer section
-     * @return    string
+     * @return string
      */
     public function get_footer(){
         return <<<HTML

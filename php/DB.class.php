@@ -1,7 +1,11 @@
 <?php
-include_once("Product.class.php");
-include_once("Cart.class.php");
 
+// include_once("Product.class.php");
+// include_once("Cart.class.php");
+
+/**
+ * Used to access and set data in database.
+ */
 class DB {
 
 	private $pdo;
@@ -92,6 +96,25 @@ class DB {
 		try {
 			$stmt = $this->pdo->prepare("INSERT INTO products (Name, Price, Description, Quantity, SalePrice, ImageName) VALUES (:name, :price, :description, :quantity, :sale_price, :image_name)");
 			$stmt->execute(array(":name"=>$name, ":price"=>$price, ":description"=>$description, ":quantity"=>$quantity, ":sale_price"=>$sale_price, ":image_name"=>$image_name));
+			return $this->pdo->lastInsertId();
+		} catch(PDOException $pdoe){
+			echo $pdoe->getMessage();
+			die();
+		}
+	}
+
+	/**
+	 * Insert data into db.
+	 * @param string, array
+	 * @return int
+	 */
+	public function insert(string $sql_string, $params){
+		try {
+			$stmt = $this->pdo->prepare($sql_string);
+			for($i = 0; $i < count($params); $i++){
+				$stmt->bindParam($i+1, $params[$i]);
+			}
+			$stmt->execute();
 			return $this->pdo->lastInsertId();
 		} catch(PDOException $pdoe){
 			echo $pdoe->getMessage();

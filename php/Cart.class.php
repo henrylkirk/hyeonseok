@@ -1,7 +1,8 @@
 <?php 
 
-// session_start();
-
+/**
+ * Contains products and quantities to be purchased.
+ */
 class Cart {
 
     private $db;
@@ -49,9 +50,12 @@ class Cart {
      * @param int
      * @return bool
      */
-    // public function add_to_cart(int $product_id){
-    //     return TRUE;
-    // }
+    public function add_to_cart(int $product_id){
+        $sql_string = "INSERT INTO cart ID, Quantity VALUES(?, ?)";
+        $params = array($product_id, 1);
+        $this->db->insert($sql_string, $params);
+        return TRUE;
+    }
     
     /**
      * Removes a product from the cart
