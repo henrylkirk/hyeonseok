@@ -4,7 +4,7 @@ include_once("Cart.class.php");
 
 class DB {
 
-	private $db;
+	private $pdo;
 	const PRODUCTS_PER_PAGE = 5;
 	
 	/**
@@ -12,8 +12,8 @@ class DB {
 	 */
 	function __construct(){
 		try {
-			$this->db = new PDO("mysql:host={$_SERVER['DB_SERVER']};dbname={$_SERVER['DB']}",$_SERVER['DB_USER'],$_SERVER['DB_PASSWORD']);
-			$this->db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); // shows errors
+			$this->pdo = new PDO("mysql:host={$_SERVER['DB_SERVER']};dbname={$_SERVER['DB']}",$_SERVER['DB_USER'],$_SERVER['DB_PASSWORD']);
+			$this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); // shows errors
 		} catch(PDOException $pdoe){
 			echo $pdoe->getMessage();
 			die();
@@ -23,15 +23,16 @@ class DB {
 	/**
 	 * Get a Product by its id
 	 * @param int
+	 * @return array
 	 */ 
 	public function get_product(int $id){
 		try {
-			$data = array();
-			$stmt = $this->db->prepare("SELECT * FROM products WHERE id = :id");
+			$stmt = $this->pdo->prepare("SELECT * FROM products WHERE id = :id");
 			$stmt->bindParam(":id",$id,PDO::PARAM_INT);
 			$stmt->execute();
-			$data = $stmt->fetchAll();
-			return $data;
+			$stmt->setFetchMode(PDO::FETCH_CLASS, "Product");
+			$product = $stmt->fetch();
+			return $product;
 		} catch(PDOException $pdoe){
 			echo $pdoe->getMessage();
 			die();
@@ -43,10 +44,10 @@ class DB {
 	 * @param string
 	 * @return array
 	 */
-	private function get_products(string $sqlString){
+	private function get_products(string $sql_string){
 		try {
 			$data = array();
-			$stmt = $this->db->prepare($sqlString);
+			$stmt = $this->pdo->prepare($sql_string);
 			$stmt->execute();
 			$stmt->setFetchMode(PDO::FETCH_CLASS, "Product");
 			while($product = $stmt->fetch()){
@@ -64,7 +65,7 @@ class DB {
 	 */
 	public function get_catalog_products_count(){
 		$sqlString = "SELECT COUNT(*) FROM products WHERE SalePrice = 0";
-		$result = $this->db->prepare($sqlString);
+		$result = $this->pdo->prepare($sqlString);
 		$result->execute(); 
 		$number_of_products = $result->fetchColumn();
 		return $number_of_products; 
@@ -89,9 +90,9 @@ class DB {
 	// Used to insert a new product into the database
 	public function insert_product($name, $price, $description, $quantity, $sale_price, $image_name){
 		try {
-			$stmt = $this->db->prepare("INSERT INTO products (Name, Price, Description, Quantity, SalePrice, ImageName) VALUES (:name, :price, :description, :quantity, :sale_price, :image_name)");
+			$stmt = $this->pdo->prepare("INSERT INTO products (Name, Price, Description, Quantity, SalePrice, ImageName) VALUES (:name, :price, :description, :quantity, :sale_price, :image_name)");
 			$stmt->execute(array(":name"=>$name, ":price"=>$price, ":description"=>$description, ":quantity"=>$quantity, ":sale_price"=>$sale_price, ":image_name"=>$image_name));
-			return $this->db->lastInsertId();
+			return $this->pdo->lastInsertId();
 		} catch(PDOException $pdoe){
 			echo $pdoe->getMessage();
 			die();
@@ -104,7 +105,18 @@ class DB {
 	/////////////
 
 	public function get_cart_contents(){
-		// get all products
+		try {
+			$cart_contents = array();
+			$stmt = $this->pdo->prepare("SELECT ID, Quantity FROM cart ORDER BY ID");
+			$result = $stmt->execute();
+			$cart_contents = $stmt->fetchAll();
+			return $cart_contents;
+		} catch(PDOException $pdoe){
+			echo $pdoe->getMessage();
+			die();
+		}
+		
+
 	}
 	
 }

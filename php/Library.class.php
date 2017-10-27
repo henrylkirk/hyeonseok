@@ -5,7 +5,7 @@
  */
 class Library {
 
-    private $db;
+    public $db;
 
     /**
      * Constructor
@@ -258,9 +258,7 @@ HTML;
                             <li>Price: &#36;{$product->get_price()}</li>
                             <li>Amount in stock: {$product->get_quantity()}</li>
                           </ul>
-                          <button class="btn btn-primary" data-dismiss="modal" type="button">
-                            <i class="fa fa-times"></i>
-                            Close</button>
+                          <a href="index.php?action=addToCart&id={$product->get_id()}"><i class="fa fa-cart-plus fa-3x" aria-hidden="true"></i></a>
                         </div>
                       </div>
                     </div>
@@ -268,6 +266,79 @@ HTML;
                 </div>
               </div>
             </div>
+HTML;
+    }
+
+    /**
+     * Returns the site's cart section.
+     * @return string
+     */
+    public function get_cart_section(){
+        $section = <<<HTML
+            <section class="bg-light" id="cart">
+                  <div class="container">
+                    <div class="row">
+                        <table id="cart-table" class="table table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="width:50%">Product</th>
+                                    <th style="width:10%">Price</th>
+                                    <th style="width:8%">Quantity</th>
+                                    <th style="width:22%" class="text-center">Subtotal</th>
+                                    <th style="width:10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+HTML;
+        $cart_contents = $this->db->get_cart_contents();
+        for($i = 0; $i < count($cart_contents); $i++){
+            $product = $this->db->get_product($cart_contents[$i]["ID"]);
+            $section .= $this->get_cart_row($product, $cart_contents[$i]["Quantity"]);
+        }
+        $section .= <<<HTML
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+                                    <td colspan="2" class="hidden-xs"></td>
+                                    <td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
+                                    <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </section>
+HTML;
+        return $section;
+    }
+
+    /**
+     * Used by get_cart_section. Returns a row in html table for a product.
+     * @param Product, int
+     * @return string
+     */
+    public function get_cart_row($product, $quantity){
+        $subtotal = number_format($product->get_price() * $quantity, 2);
+        return <<<HTML
+        <tr>
+            <td data-th="Product">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <h4 class="nomargin">{$product->get_name()}</h4>
+                        <p>{$product->get_description()}</p>
+                    </div>
+                </div>
+            </td>
+            <td data-th="Price">&#36;{$product->get_price()}</td>
+            <td data-th="Quantity">
+                <input type="number" class="form-control text-center" value="{$quantity}">
+            </td>
+            <td data-th="Subtotal" class="text-center">&#36;{$subtotal}</td>
+            <td class="actions" data-th="">
+                <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>                                
+            </td>
+        </tr>
 HTML;
     }
 
