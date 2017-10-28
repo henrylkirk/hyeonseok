@@ -103,18 +103,27 @@ class DB {
 	}
 
 	/**
-	 * Insert data into db.
-	 * @param string, array
-	 * @return int
+	 * Generic function to call sql insert/update.
 	 */
-	public function insert(string $sql_string, $params){
+	public function set_data($sql_string, $params){
 		try {
 			$stmt = $this->pdo->prepare($sql_string);
-			for($i = 0; $i < count($params); $i++){
-				$stmt->bindParam($i+1, $params[$i]);
-			}
-			$stmt->execute();
+			$stmt->execute($params);
 			return $this->pdo->lastInsertId();
+		} catch(PDOException $pdoe){
+			echo $pdoe->getMessage();
+			die();
+		}
+	}
+
+	/**
+	 * Update product id with values.
+	 * @param 
+	 */
+	public function update_product($id, $name, $description, $price, $sale_price, $quantity, $image_name){
+		try {
+			$stmt = $this->pdo->prepare("UPDATE products SET Name = :name, Price = :price, Description = :description, Quantity = :quantity, SalePrice = :sale_price, ImageName = :image_name WHERE ID = :id");
+			$stmt->execute(array(":name"=>$name, ":price"=>$price, ":description"=>$description, ":quantity"=>$quantity, ":sale_price"=>$sale_price, ":image_name"=>$image_name, ":id"=>$id));
 		} catch(PDOException $pdoe){
 			echo $pdoe->getMessage();
 			die();

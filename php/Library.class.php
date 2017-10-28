@@ -5,7 +5,7 @@
  */
 class Library {
 
-    private $db;
+    public $db;
     private $cart;
 
     /**
@@ -63,27 +63,19 @@ HTML;
                   <!-- <ul class="navbar-nav ml-auto"> -->
                   <ul class="navbar-nav">
                     <li class="nav-item">
-                      <a class="nav-link js-scroll-trigger" href="#sales">Sales</a>
+                      <a class="nav-link js-scroll-trigger" href="index.php#sales">Sales</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link js-scroll-trigger" href="#catalog">Catalog</a>
+                      <a class="nav-link js-scroll-trigger" href="index.php#catalog">Catalog</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="admin.php">Admin</a>
+                      <a class="nav-link" href="login.php">Admin</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="cart.php"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a>
                     </li>
                   </ul>
                 </div>
-                  <!-- Login Form -->
-                  <form class="navbar-form navbar-right" role="search" style="width:100%;">
-                    <div class="form-group row">
-                        <input type="text" class="form-control" name="username" placeholder="Username">
-                        <input type="text" class="form-control" name="password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-default">Sign In</button>
-                  </form>
               </div>
             </nav>
 HTML;
@@ -263,7 +255,7 @@ HTML;
                             <thead>
                                 <tr>
                                     <th style="width:50%">Product</th>
-                                    <th style="width:10%">Price</th>
+                                    <th style="width:10%">Original Price</th>
                                     <th style="width:8%">Quantity</th>
                                     <th style="width:22%" class="text-center">Subtotal</th>
                                     <th style="width:10%"></th>
@@ -318,7 +310,7 @@ HTML;
             </td>
             <td data-th="Subtotal" class="text-center">&#36;{$subtotal}</td>
             <td class="actions" data-th="">
-                <a href="cart.php?action=removeFromCart&id={$product->get_id()}"><button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>                                
+                <a href="cart.php?action=removeFromCart&id={$product->get_id()}"><button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button></a>                              
             </td>
         </tr>
 HTML;
@@ -339,7 +331,7 @@ HTML;
                 <input type="text" name="description[]" class="form-control text-center" value="{$product->get_description()}">
             </td>      
             <td>
-                <input type="number" name="price[]" class="form-control text-center" value="{$product->get_price()}">
+                <input type="number" name="price[]" class="form-control text-center" value="{$product->get_original_price()}">
             </td>
             <td>
                 <input type="number" name="sale_price[]" class="form-control text-center" value="{$product->get_sale_price()}">
@@ -363,7 +355,8 @@ HTML;
             <section class="bg-light" id="admin">
                   <div class="container">
                     <div class="row">
-                        <form action="{$_SERVER['PHP_SELF']}" method="post" id="admin-form">
+                        <h2>Update Products</h2>
+                        <form action="{$_SERVER['PHP_SELF']}" method="post" id="admin-form-update">
                             <table class="table table-hover table-condensed">
                                 <thead>
                                     <tr>
@@ -387,10 +380,54 @@ HTML;
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td><input class="btn btn-warning" name="submit" id="submit" class="submit" type="submit" value="save" /></td>
+                                        <td><input class="btn btn-warning" name="update" id="submit" class="submit" type="submit" value="update" /></td>
                                     </tr>
                                 </tfoot>
                             </table>
+                        </form>
+                        <br /><br />
+                        <h2>Add a New Product</h2>
+                        <!-- Add New Product Form -->
+                        <form action="{$_SERVER['PHP_SELF']}" method="post" id="admin-form-new">
+                            <table class="table table-hover table-condensed">
+                                <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Sale Price</th>
+                                            <th>Quantity</th>
+                                            <th>Image Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input type="text" name="new_name" class="form-control text-center" placeholder="Name">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="new_description" class="form-control text-center" placeholder="Description">
+                                            </td>      
+                                            <td>
+                                                <input type="number" name="new_price" class="form-control text-center" placeholder="Price">
+                                            </td>
+                                            <td>
+                                                <input type="number" name="new_sale_price" class="form-control text-center" placeholder="Sale Price">
+                                            </td>
+                                            <td>
+                                                <input type="number" name="new_quantity" class="form-control text-center" placeholder="Quantity">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="new_image_name" class="form-control text-center" placeholder="Image Name">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td><input class="btn btn-warning" name="create" class="submit" type="submit" value="Create Product" /></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                         </form>
                     </div>
                 </div>

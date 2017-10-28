@@ -1,9 +1,29 @@
 <?php require_once("php/page_start.php"); ?>
 
 <?php
-	//if form was submitted
-	if (isset($_POST['submit'])) 
-	{
+
+	// start session
+	session_name("login");
+	session_start();
+
+	// check if user logged in
+	if(isset($_SESSION['loggedin'])){
+ 		
+ 		// unset session variable
+ 		// session_unset();
+ 		
+ 		// destroy session
+ 		// session_destroy();
+ 		
+ 		// set cookie to expire
+ 		// setcookie("loggedin", "", 1);
+ 		
+	} else { // not logged in, redirect to login.php
+		header("location: login.php");
+	}
+
+	//if update form was submitted
+	if (isset($_POST['update'])) {
 		$ids = $_POST['id'];
 		$names = $_POST['name'];
 		$descriptions = $_POST['description'];
@@ -12,23 +32,40 @@
 		$quantities = $_POST['quantity'];
 		$image_names = $_POST['image_name'];
 
-		foreach($names as $name){
-			echo "<h2>$name</h2>";
-		}
-		
-		echo "<h2>Count: ".count($_POST)."</h2>";
+		// update this product with id
+		for($i = 0; $i < count($ids); $i++){
+			$name = Validator::sanitize_string($names[$i]);
+			$price = filter_var($prices[$i], FILTER_SANITIZE_NUMBER_INT);
+			$description = Validator::sanitize_string($descriptions[$i]);
+			$quantity = filter_var($quantities[$i], FILTER_SANITIZE_NUMBER_INT);
+			$sale_price = filter_var($sale_prices[$i], FILTER_SANITIZE_NUMBER_INT);
+			$image_name = Validator::sanitize_string($image_names[$i]);
+			$id = filter_var($ids[$i], FILTER_SANITIZE_NUMBER_INT);
 
-		//use print_r
-		print_r($_POST);
-		
-		echo "<hr />";
-		
-		//another useful debugging tool
-		var_dump($_POST);
-		
-		echo "<hr />";
-		
-		
+			// validate
+			if(Validator::is_numeric($id) && Validator::is_numeric($price) && Validator::is_numeric($quantity) && Validator::is_numeric($sale_price) && Validator::is_valid_string($name) && Validator::is_valid_string($description) && Validator::is_valid_string($image_name)){
+				// update
+				$sql_string = "UPDATE products SET Name = ?, Price = ?, Description = ?, Quantity = ?, SalePrice = ?, ImageName = ? WHERE ID = ?";
+				$params = array($names[$i], $prices[$i], $descriptions[$i], $quantities[$i], $sale_prices[$i], $image_names[$i], $ids[$i]);
+				$lib->db->set_data($sql_string, $params);
+			}
+		}
+	}
+
+	// if create product form submitted
+	if(isset($_POST['create'])){
+		// sanitize
+		$name = Validator::sanitize_string($_POST['new_name']);
+		$description = Validator::sanitize_string($_POST['new_description']);
+		$price = filter_var($_POST['new_price'], FILTER_SANITIZE_NUMBER_INT);
+		$sale_price = filter_var($_POST['new_sale_price'], FILTER_SANITIZE_NUMBER_INT);
+		$quantity = filter_var($_POST['new_quantity'], FILTER_SANITIZE_NUMBER_INT);
+		$image_name = Validator::sanitize_string($_POST['new_image_name']);
+		//validate
+		if(Validator::is_numeric($price) && Validator::is_numeric($quantity) && Validator::is_numeric($sale_price) && Validator::is_valid_string($name) && Validator::is_valid_string($description) && Validator::is_valid_string($image_name)){
+			// insert
+			$lib->db->insert_product($name, $price, $description, $quantity, $sale_price, $image_name);
+		}
 	}
 ?>
 

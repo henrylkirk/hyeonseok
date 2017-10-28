@@ -26,6 +26,9 @@ class Product {
 	public function get_image_name(){
 		return $this->ImageName;
 	}
+	public function get_original_price(){
+		return $this->Price;
+	}
 
 	// Mutators
 	

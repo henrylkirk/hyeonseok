@@ -43,6 +43,12 @@
 			$string = strip_tags($string);
 			return $string;
 		}
+
+		public static function is_valid_string($string){
+			return !empty($string);
+		}
+
+
 	
 	}
 	

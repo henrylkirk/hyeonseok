@@ -23,14 +23,6 @@ class Cart {
     }
     
     /**
-     * Returns number of products in cart
-     * @return int
-     */
-    // public function get_products_count(){
-    //     return $count;
-    // }
-    
-    /**
      * Returns total price for cart
      * @return double
      */
@@ -50,10 +42,11 @@ class Cart {
      * @param int
      * @return bool
      */
-    public function add_to_cart(int $product_id){
-        $sql_string = "INSERT INTO cart ID, Quantity VALUES(?, ?)";
+    public function add(int $product_id){
+        // add product to cart
+        $sql_string = "INSERT INTO cart (ID, Quantity) VALUES(?, ?)";
         $params = array($product_id, 1);
-        $this->db->insert($sql_string, $params);
+        $this->db->set_data($sql_string, $params);
         return TRUE;
     }
     
@@ -62,9 +55,12 @@ class Cart {
      * @param int
      * @return bool
      */
-    // public function remove(int $product_id){
-    //     return TRUE;
-    // }
+    public function remove(int $product_id){
+        $sql_string = "DELETE FROM cart WHERE ID = ?";
+        $params = array($product_id);
+        $this->db->set_data($sql_string, $params);
+        return TRUE;
+    }
 
     // public function empty(){
     //     return TRUE;
