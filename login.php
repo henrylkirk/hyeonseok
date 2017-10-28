@@ -2,12 +2,8 @@
 
 <?php
 
-	// hardcoded user & pass
-	$user = "admin";
-	$password = "password";
-
 	// check if user & pass are correct - if so, log in
-	if(isset($_POST['username']) && !empty($_POST['username']) AND isset($_POST['password']) && !empty($_POST['password'])){
+	if(isset($_POST['username']) && !empty($_POST['username']) AND isset($_POST['password']) && !empty($_POST['password']) && $lib->db->is_correct_login($_POST['username'], $_POST['password'])){
 		$username_attempt = $_POST['username'];
         $password_attempt = $_POST['password'];
 
@@ -46,13 +42,17 @@
 <?php echo $lib->get_header("", "LOGIN"); ?>
 
 <!-- Login Form -->
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" style="width:100%;">
-	<div class="form-group row">
-	    <input type="text" class="form-control" name="username" placeholder="Username">
-	    <input type="text" class="form-control" name="password" placeholder="Password">
+<div class="container">
+	<div class="row">
+		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" style="width:100%;">
+			<div class="form-group row">
+			    <input type="text" class="form-control" name="username" placeholder="Username" required>
+			    <input type="password" class="form-control" name="password" placeholder="Password" required>
+			</div>
+			<button type="submit" class="btn btn-default">Sign In</button>
+		</form>
 	</div>
-	<button type="submit" class="btn btn-default">Sign In</button>
-</form>
+</div>
 
 <!-- Footer -->
 <?php echo $lib->get_footer(); ?>

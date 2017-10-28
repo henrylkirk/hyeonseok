@@ -10,13 +10,13 @@
 	if(isset($_SESSION['loggedin'])){
  		
  		// unset session variable
- 		// session_unset();
+ 		session_unset();
  		
  		// destroy session
- 		// session_destroy();
+ 		session_destroy();
  		
  		// set cookie to expire
- 		// setcookie("loggedin", "", 1);
+ 		setcookie("loggedin", "", 1);
  		
 	} else { // not logged in, redirect to login.php
 		header("location: login.php");

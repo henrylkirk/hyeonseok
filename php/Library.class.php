@@ -325,22 +325,22 @@ HTML;
         <tr data-product-id="{$product->get_id()}">
             <input type="hidden" name="id[]" value="{$product->get_id()}">
             <td>
-                <input type="text" name="name[]" class="form-control text-center" value="{$product->get_name()}">
+                <input type="text" name="name[]" class="form-control text-center" value="{$product->get_name()}" required>
             </td>
             <td>
-                <input type="text" name="description[]" class="form-control text-center" value="{$product->get_description()}">
+                <input type="text" name="description[]" class="form-control text-center" value="{$product->get_description()}" required>
             </td>      
             <td>
-                <input type="number" name="price[]" class="form-control text-center" value="{$product->get_original_price()}">
+                <input type="number" name="price[]" class="form-control text-center" value="{$product->get_original_price()}" required>
             </td>
             <td>
-                <input type="number" name="sale_price[]" class="form-control text-center" value="{$product->get_sale_price()}">
+                <input type="number" name="sale_price[]" class="form-control text-center" value="{$product->get_sale_price()}" required>
             </td>
             <td>
-                <input type="number" name="quantity[]" class="form-control text-center" value="{$product->get_quantity()}">
+                <input type="number" name="quantity[]" class="form-control text-center" value="{$product->get_quantity()}" required>
             </td>
             <td>
-                <input type="text" name="image_name[]" class="form-control text-center" value="{$product->get_image_name()}">
+                <input type="text" name="image_name[]" class="form-control text-center" value="{$product->get_image_name()}" required>
             </td>
         </tr>
 HTML;
@@ -403,22 +403,22 @@ HTML;
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <input type="text" name="new_name" class="form-control text-center" placeholder="Name">
+                                                <input type="text" name="new_name" class="form-control text-center" placeholder="Name" required>
                                             </td>
                                             <td>
-                                                <input type="text" name="new_description" class="form-control text-center" placeholder="Description">
+                                                <input type="text" name="new_description" class="form-control text-center" placeholder="Description" required>
                                             </td>      
                                             <td>
-                                                <input type="number" name="new_price" class="form-control text-center" placeholder="Price">
+                                                <input type="number" name="new_price" class="form-control text-center" placeholder="Price" required>
                                             </td>
                                             <td>
-                                                <input type="number" name="new_sale_price" class="form-control text-center" placeholder="Sale Price">
+                                                <input type="number" name="new_sale_price" class="form-control text-center" placeholder="Sale Price" required>
                                             </td>
                                             <td>
-                                                <input type="number" name="new_quantity" class="form-control text-center" placeholder="Quantity">
+                                                <input type="number" name="new_quantity" class="form-control text-center" placeholder="Quantity" required>
                                             </td>
                                             <td>
-                                                <input type="text" name="new_image_name" class="form-control text-center" placeholder="Image Name">
+                                                <input type="text" name="new_image_name" class="form-control text-center" placeholder="Image Name" required>
                                             </td>
                                         </tr>
                                     </tbody>

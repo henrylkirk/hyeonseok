@@ -146,9 +146,28 @@ class DB {
 			echo $pdoe->getMessage();
 			die();
 		}
-		
-
 	}
+
+	/////////////
+	// Users
+	/////////////
+
+	public function is_correct_login($username, $password){
+		try {
+			$stmt = $this->pdo->prepare("SELECT * FROM customers WHERE username = :username AND password = :password");
+			$result = $stmt->execute(array(":username"=>$username, ":password"=>$password));
+			$row = $stmt->rowCount();
+			if($row > 0){
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		} catch(PDOException $pdoe){
+			echo $pdoe->getMessage();
+			die();
+		}
+	}
+
 	
 }
 
