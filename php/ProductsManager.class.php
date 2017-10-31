@@ -23,6 +23,22 @@ class ProductsManager {
 		return $quantity;
 	}
 
+	/**
+	 * Returns the product with given id.
+	 * @param int
+	 * @return Product
+	 */
+	public get_product(int $id){
+		$sql_string = "SELECT * FROM products WHERE id = ?";
+		$params = array($id);
+		$this->db->get_data($sql_string, $params, "Product");
+		return $product;
+	}
+	
+
+	/**
+	 *
+	 */
 	public function remove_product($id, int $num_to_remove){
 		$product = $this->db->get_product($id);
 		$quantity = 3;

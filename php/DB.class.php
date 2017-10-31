@@ -1,8 +1,5 @@
 <?php
 
-// include_once("Product.class.php");
-// include_once("Cart.class.php");
-
 /**
  * Used to access and set data in database.
  */
@@ -17,6 +14,24 @@ class DB {
 		try {
 			$this->pdo = new PDO("mysql:host={$_SERVER['DB_SERVER']};dbname={$_SERVER['DB']}",$_SERVER['DB_USER'],$_SERVER['DB_PASSWORD']);
 			$this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); // shows errors
+		} catch(PDOException $pdoe){
+			echo $pdoe->getMessage();
+			die();
+		}
+	}
+
+	/**
+	 * Generic function to get data as array of given class.
+	 * @param string, array, string
+	 * @return array
+	 */ 
+	public function get_data(int $sql_string, array $params, string $class_name){
+		try {
+			$stmt = $this->pdo->prepare($sql_string);
+			$stmt->execute($params);
+			$stmt->setFetchMode(PDO::FETCH_CLASS, $class_name);
+			$product = $stmt->fetch();
+			return $product;
 		} catch(PDOException $pdoe){
 			echo $pdoe->getMessage();
 			die();
