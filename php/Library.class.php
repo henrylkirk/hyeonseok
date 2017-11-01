@@ -18,8 +18,8 @@ class Library {
 
     /**
      * get_head: Returns the site's head
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     public function get_head(string $page_title){
         return <<<HTML
@@ -47,8 +47,8 @@ HTML;
     }
 
     /**
-     * get_nav: Returns the site's navigation
-     * @return    string
+     * Returns the site's navigation
+     * @return string
      */
     public function get_nav(){
         return <<<HTML
@@ -60,8 +60,7 @@ HTML;
                     <i class="fa fa-bars"></i>
                   </button>
                 <div class="collapse navbar-collapse navbar-left" id="navbarResponsive">
-                  <!-- <ul class="navbar-nav ml-auto"> -->
-                  <ul class="navbar-nav">
+                  <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                       <a class="nav-link js-scroll-trigger" href="index.php#sales">Sales</a>
                     </li>
@@ -222,7 +221,7 @@ HTML;
                     <div class="row">
                       <div class="col-lg-8 mx-auto">
                         <div class="modal-body">
-                          <!-- Project Details Go Here -->
+                          <!-- Project Details -->
                           <h2>{$product->get_name()}</h2>
                           <p class="item-intro text-muted">{$product->get_description()}</p>
                           <img class="img-fluid d-block mx-auto" src="img/products-full/{$product->get_image_name()}.jpg" alt="{$product->get_image_name()}">

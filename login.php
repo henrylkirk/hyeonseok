@@ -2,8 +2,12 @@
 
 <?php
 
+	// get login fields
+	$username = isset($_POST['username']) ? strtolower(trim($_POST['username'])) : "";
+	$password = isset($_POST['password']) ? trim($_POST['password']) : "";
+
 	// check if user & pass are correct - if so, log in
-	if(isset($_POST['username']) && !empty($_POST['username']) AND isset($_POST['password']) && !empty($_POST['password']) && $lib->db->is_correct_login($_POST['username'], $_POST['password'])){
+	if(!empty($username) AND !empty($password) && $lib->db->is_correct_login($username, $password)){
 		$username_attempt = $_POST['username'];
         $password_attempt = $_POST['password'];
 

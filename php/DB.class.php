@@ -89,23 +89,31 @@ class DB {
 		return $number_of_products; 
 	}
 
-	// Returns an array of all Products in database
+	/**
+	 * Returns an array of all Products in database
+	 */
 	public function get_all_products(){
 		return $this->get_products("SELECT * FROM products ORDER BY Name");
 	}
 
-	// Returns an array of Products not on sale
+	/**
+	 * Returns an array of Products not on sale
+	 */
 	public function get_catalog_products($page_num = 1){
 		$offset = ($page_num - 1) * ProductsManager::PRODUCTS_PER_PAGE;
 		return $this->get_products("SELECT * FROM products WHERE SalePrice = 0 ORDER BY Name LIMIT ". ProductsManager::PRODUCTS_PER_PAGE ." OFFSET {$offset}");
 	}
 
-	// Returns an array of all Products in database on sale
+	/**
+	 * Returns an array of all Products in database on sale
+	 */
 	public function get_sale_products(){
 		return $this->get_products("SELECT * FROM products WHERE SalePrice > 0 ORDER BY Name");
 	}	
 	
-	// Used to insert a new product into the database
+	/**
+	 * Used to insert a new product into the database
+	 */
 	public function insert_product($name, $price, $description, $quantity, $sale_price, $image_name){
 		try {
 			$stmt = $this->pdo->prepare("INSERT INTO products (Name, Price, Description, Quantity, SalePrice, ImageName) VALUES (:name, :price, :description, :quantity, :sale_price, :image_name)");
@@ -133,7 +141,6 @@ class DB {
 
 	/**
 	 * Update product id with values.
-	 * @param 
 	 */
 	public function update_product($id, $name, $description, $price, $sale_price, $quantity, $image_name){
 		try {

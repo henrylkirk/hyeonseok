@@ -28,13 +28,12 @@ class ProductsManager {
 	 * @param int
 	 * @return Product
 	 */
-	public get_product(int $id){
+	public function get_product(int $id){
 		$sql_string = "SELECT * FROM products WHERE id = ?";
 		$params = array($id);
 		$this->db->get_data($sql_string, $params, "Product");
 		return $product;
 	}
-	
 
 	/**
 	 *
